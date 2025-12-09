@@ -11,7 +11,6 @@ import './Sidebar.css';
  * - onSelect: (key: string) => void (select a section)
  */
 export default function Sidebar({ open, active, onToggle, onSelect }) {
-  const [performanceOpen, setPerformanceOpen] = useState(false);
   const [attendanceOpen, setAttendanceOpen] = useState(false);
   const [reportsOpen, setReportsOpen] = useState(false);
   const [invoiceOpen, setInvoiceOpen] = useState(false);
@@ -27,7 +26,6 @@ export default function Sidebar({ open, active, onToggle, onSelect }) {
   }, [open, onToggle]);
 
   const items = [
-    { key: 'dashboard', label: 'Dashboard' },
     {
       key: 'attendance',
       label: 'Attendance',
@@ -38,16 +36,6 @@ export default function Sidebar({ open, active, onToggle, onSelect }) {
         { key: 'attendance-summary', label: 'Summary', path: '/attendance/summary' }
       ]
     },
-    {
-      key: 'performance',
-      label: 'Performance',
-      hasSubmenu: true,
-      submenu: [
-        { key: 'physical-assessment', label: 'Physical Assessment' },
-        { key: 'archery-assessment', label: 'Archery Assessment' }
-      ]
-    },
-    { key: 'tournaments', label: 'Tournaments' },
     {
       key: 'reports',
       label: 'Reports',
@@ -91,7 +79,6 @@ export default function Sidebar({ open, active, onToggle, onSelect }) {
                     type="button"
                     className={`sidebar__item ${active === it.key || (it.submenu && it.submenu.some(sub => sub.key === active)) ? 'is-active' : ''}`}
                     onClick={() => {
-                      if (it.key === 'performance') setPerformanceOpen(!performanceOpen);
                       if (it.key === 'attendance') setAttendanceOpen(!attendanceOpen);
                       if (it.key === 'reports') setReportsOpen(!reportsOpen);
                       if (it.key === 'invoice') setInvoiceOpen(!invoiceOpen);
@@ -99,12 +86,12 @@ export default function Sidebar({ open, active, onToggle, onSelect }) {
                   >
                     {it.label}
                     <span className="sidebar__item-arrow">
-                      {(it.key === 'performance' ? performanceOpen : it.key === 'attendance' ? attendanceOpen : it.key === 'reports' ? reportsOpen : it.key === 'invoice' ? invoiceOpen : false) ? '▼' : '▶'}
+                      {(it.key === 'attendance' ? attendanceOpen : it.key === 'reports' ? reportsOpen : it.key === 'invoice' ? invoiceOpen : false) ? '▼' : '▶'}
                     </span>
                   </button>
 
                   {/* Submenu */}
-                  { (it.key === 'performance' ? performanceOpen : it.key === 'attendance' ? attendanceOpen : it.key === 'reports' ? reportsOpen : it.key === 'invoice' ? invoiceOpen : false) && (
+                  { (it.key === 'attendance' ? attendanceOpen : it.key === 'reports' ? reportsOpen : it.key === 'invoice' ? invoiceOpen : false) && (
                     <div className="sidebar__submenu">
                       {it.submenu.map((subItem) => (
                         <Link

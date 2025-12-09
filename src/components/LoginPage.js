@@ -15,10 +15,10 @@ function LoginPage() {
   const location = useLocation();
   const { isAuthenticated, login } = useAuth();
 
-  // If already logged in, redirect to dashboard
+  // If already logged in, redirect to attendance/mark
   useEffect(() => {
     if (isAuthenticated) {
-      const from = location.state?.from?.pathname || '/dashboard';
+      const from = location.state?.from?.pathname || '/attendance/mark';
       loginLogger.logNavigation(location.pathname, from, 'User already authenticated');
       navigate(from, { replace: true });
     }
@@ -50,7 +50,7 @@ function LoginPage() {
         }
 
         setError('');
-        const from = location.state?.from?.pathname || '/dashboard';
+        const from = location.state?.from?.pathname || '/attendance/mark';
         loginLogger.info('Login successful, redirecting', { from });
         navigate(from, { replace: true });
       })

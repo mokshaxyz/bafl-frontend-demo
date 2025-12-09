@@ -1,0 +1,55 @@
+/* AppLayout minimal styles - non-invasive */
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--app-bg, #f7f9fb);
+  color: var(--app-fg, #222);
+}
+
+.app-layout__body {
+  display: flex;
+  width: 100%;
+  transition: all 0.18s ease;
+}
+
+/* Provide default sidebar width but don't override sidebar styles */
+.app-layout__body .sidebar {
+  width: 260px;
+  transition: transform 0.18s ease;
+}
+
+/* Mobile collapsed state */
+.app-layout__body.sidebar-open .sidebar {
+  transform: translateX(0);
+}
+
+/* Main content area */
+.app-layout__main {
+  flex: 1 1 auto;
+  padding: 20px;
+  min-height: calc(100vh - 64px);
+  background: transparent;
+}
+
+/* Mobile behavior */
+@media (max-width: 900px) {
+  .app-layout__body {
+    position: relative;
+  }
+  .app-layout__body .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    z-index: 1000;
+    background: var(--sidebar-bg, #fff);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .app-layout__body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+}
+

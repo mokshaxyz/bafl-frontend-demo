@@ -1,0 +1,200 @@
+:root {
+  --navbar-height: 64px;
+  --navbar-padding-x: 32px;
+  --navbar-padding-y: 8px;
+  --navbar-gap: 12px;
+ 
+  --navbar-bg: var(--color-charcoal);
+  --avatar-size: 40px;
+  --avatar-border: var(--color-earthy-green)
+}
+
+.navbar {
+  min-height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--navbar-padding-y) var(--navbar-padding-x);
+  background: var(--navbar-bg);
+  color: var(--navbar-fg);
+  border-bottom: 1px solid var(--navbar-border);
+  /* Keep the navbar pinned at the top while content scrolls */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Left: Logo */
+.navbar__left {
+  display: flex;
+  align-items: center;
+  min-width: 0; /* allow text truncation */
+}                                                                                                                                                                                                                                                              
+
+.navbar__menuBtn {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--avatar-border);
+  background: transparent;
+  color: var(--color-cream);
+  cursor: pointer;
+  transition: background 0.25s ease;
+  position: relative;
+}
+
+.navbar__menuBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.45);
+}
+
+.navbar__menuBar {
+  width: 18px;
+  height: 2px;
+  background: var(--color-cream);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+
+/* Hamburger -> X animation */
+.navbar__menuBtn.is-open .navbar__menuBar:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+.navbar__menuBtn.is-open .navbar__menuBar:nth-child(2) {
+  opacity: 0;
+}
+.navbar__menuBtn.is-open .navbar__menuBar:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+.navbar__logo {
+  display: block;
+  height: auto; /* keep intrinsic height */
+  width: auto;  /* keep intrinsic width */
+  /* Ensure the logo never exceeds the navbar height */
+  max-height: calc(var(--navbar-height) - (2 * var(--navbar-padding-y)));
+}
+
+.navbar__brand {
+  font-weight: 600;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Right: Profile */
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--navbar-gap);
+}
+
+.navbar__name {
+  /* Typography: body from theme (16px regular) */
+  font-family: var(--font-sans);
+  font-size: var(--h3-size);
+  font-weight: var(--weight-regular);
+  color: var(--color-cream);
+  max-width: 40vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar__avatarButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--avatar-size);
+  width: var(--avatar-size);
+  border-radius: 9999px; /* fully round */
+  border: 2px solid var(--avatar-border);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.05s ease;
+}
+
+.navbar__avatarButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.45); /* focus ring */
+}
+
+.navbar__avatarButton:active {
+  transform: translateY(1px);
+}
+
+.navbar__avatar {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+}
+
+.navbar__avatarFallback {
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  color: #111827; /* gray-900 */
+  background: #f3f4f6; /* gray-100 */
+}
+
+/* Profile menu */
+.navbar__menu {
+  position: absolute;
+  top: calc(var(--navbar-height) + var(--navbar-padding-y));
+  right: var(--navbar-padding-x);
+  min-width: 160px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 6px;
+  z-index: 1000;
+}
+
+.navbar__menuItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #111827;
+  font-size: 14px;
+  text-align: left;
+}
+
+.navbar__menuItem:hover,
+.navbar__menuItem:focus-visible {
+  background: #f3f4f6; /* gray-100 */
+  outline: none;
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+  :root {
+    --navbar-padding-x: 16px;
+    --avatar-size: 36px;
+  }
+
+  .navbar__name {
+    display: none; /* Hide name on very small screens */
+  }
+}

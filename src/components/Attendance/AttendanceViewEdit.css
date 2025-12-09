@@ -1,0 +1,297 @@
+@import '../../styles/theme.css';
+
+.attendance-view-edit {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.attendance-view-edit__container {
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Header Section */
+.attendance-view-edit__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.attendance-view-edit__left-section {
+  display: flex;
+  align-items: flex-end;
+}
+
+.attendance-view-edit__title {
+  font-family: var(--font-sans);
+  font-size: var(--h2-size);
+  font-weight: var(--weight-bold);
+  color: var(--color-charcoal);
+  margin: 0;
+}
+
+/* Type Toggle */
+.attendance-view-edit__type-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.attendance-view-edit__toggle-btn {
+  padding: 10px 16px;
+  border: 2px solid var(--color-earthy-green);
+  background: white;
+  color: var(--color-earthy-green);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.attendance-view-edit__toggle-btn:hover {
+  background: rgba(63, 156, 108, 0.05);
+}
+
+.attendance-view-edit__toggle-btn--active {
+  background: var(--color-earthy-green);
+  color: white;
+}
+
+.attendance-view-edit__toggle-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Filter Section */
+.attendance-view-edit__filter-section {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.attendance-view-edit__filter-header {
+  margin-bottom: 16px;
+}
+
+.attendance-view-edit__filter-title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: var(--weight-bold);
+  color: var(--color-charcoal);
+  margin: 0;
+}
+
+.attendance-view-edit__filter-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.attendance-view-edit__filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attendance-view-edit__filter-label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  color: var(--color-charcoal);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.attendance-view-edit__filter-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--color-earthy-green);
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-charcoal);
+  background: white;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233F646D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 40px;
+}
+
+.attendance-view-edit__filter-input:hover {
+  border-color: var(--color-charcoal);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.attendance-view-edit__filter-input:focus {
+  outline: none;
+  border-color: var(--color-earthy-green);
+  box-shadow: 0 0 0 3px rgba(63, 100, 109, 0.1);
+}
+
+.attendance-view-edit__filter-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Table Section */
+.attendance-view-edit__table-section {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.attendance-view-edit__table-header {
+  margin-bottom: 16px;
+}
+
+.attendance-view-edit__table-title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: var(--weight-bold);
+  color: var(--color-charcoal);
+  margin: 0;
+}
+
+/* Table Styles */
+.attendance-view-edit__table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.attendance-view-edit__table-head {
+  background: rgba(63, 100, 109, 0.05);
+}
+
+.attendance-view-edit__table-header {
+  padding: 12px 16px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  color: var(--color-charcoal);
+  border-bottom: 2px solid var(--color-earthy-green);
+}
+
+.attendance-view-edit__table-header--name {
+  width: auto;
+}
+
+.attendance-view-edit__table-header--status {
+  width: 200px;
+}
+
+.attendance-view-edit__table-body tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease;
+}
+
+.attendance-view-edit__table-body tr:hover {
+  background-color: rgba(63, 100, 109, 0.02);
+}
+
+.attendance-view-edit__table-cell {
+  padding: 14px 16px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-charcoal);
+}
+
+.attendance-view-edit__table-cell--name {
+  font-weight: var(--weight-medium);
+}
+
+.attendance-view-edit__table-cell--status {
+  vertical-align: middle;
+}
+
+/* Status Display (read-only mode) */
+.attendance-view-edit__status-display {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(63, 100, 109, 0.08);
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+  color: var(--color-earthy-green);
+  text-align: center;
+  min-width: 80px;
+}
+
+/* Actions Section */
+.attendance-view-edit__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* No Records Message */
+.attendance-view-edit__no-records {
+  padding: 40px 20px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.attendance-view-edit__no-records p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: var(--color-charcoal);
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .attendance-view-edit {
+    padding: 16px;
+  }
+
+  .attendance-view-edit__filter-fields {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .attendance-view-edit__table-header--status {
+    width: auto;
+  }
+
+  .attendance-view-edit__table-section {
+    padding: 16px;
+  }
+
+  .attendance-view-edit__table-cell {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .attendance-view-edit__actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .attendance-view-edit__actions button {
+    width: 100%;
+  }
+}

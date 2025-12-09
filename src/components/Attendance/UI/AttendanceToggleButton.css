@@ -1,0 +1,41 @@
+.attendance-toggle-button {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.attendance-toggle-button__btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px 16px;
+  border: 2px solid var(--color-earthy-green);
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+  color: var(--color-earthy-green);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.attendance-toggle-button__btn:hover {
+  background: rgba(63, 100, 109, 0.05);
+  border-color: var(--color-charcoal);
+}
+
+.attendance-toggle-button__btn:active {
+  transform: scale(0.98);
+}
+
+.attendance-toggle-button__btn--active {
+  background: var(--color-earthy-green);
+  color: white;
+  border-color: var(--color-earthy-green);
+}
+
+.attendance-toggle-button__btn--active:hover {
+  background: var(--color-charcoal);
+  border-color: var(--color-charcoal);
+}
+

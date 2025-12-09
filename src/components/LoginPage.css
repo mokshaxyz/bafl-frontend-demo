@@ -1,0 +1,138 @@
+/* Colors are provided by the global theme in `src/styles/theme.css`.
+   This file uses those variables (e.g. --color-charcoal) so the app
+   stays consistent with the central design tokens. */
+
+.login-page {
+  min-height: calc(100vh - 0px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center the login card both vertically and horizontally */
+  justify-content: center;
+  padding: 48px 16px;
+  background: transparent;
+}
+
+.login-logo {
+  display: block;
+  text-align: center;
+  margin: 0 auto 12px auto;
+}
+
+.login-logo-image {
+  display: block;
+  margin: 0 auto;
+  width: 160px;
+  max-width: 80%;
+  height: auto;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Make card background transparent and use a centered 1px earthy-green border
+    with slightly larger corner radius as requested. Keep padding for spacing. */
+  /* fully transparent background */
+  background: transparent;
+  padding: 28px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  /* 1px border using theme earthy green and 12px radius */
+  border: 1px solid var(--color-earthy-green);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.login-title {
+  margin: 0;
+  color: var(--color-charcoal);
+  font-size: var(--h2-size); /* using h2 size from theme (32px) */
+  font-weight: var(--weight-bold);
+  font-family: var(--font-sans);
+  text-align: center;
+}
+
+.login-error {
+  margin: 0;
+  color: var(--color-reddish-orange);
+  font-size: var(--h3-size);
+  font-weight: var(--weight-regular);
+  font-family: var(--font-sans);
+  font-style: italic;
+  text-align: center;
+}
+
+.label {
+  margin: 8px 0 4px 0;
+  color: var(--color-charcoal);
+  font-size: var(--h3-size);
+  font-weight: var(--weight-regular);
+  font-family: var(--font-sans);
+}
+
+.input {
+  padding: 10px 12px;
+  font-size: var(--h3-size);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  border: 1px solid var(--color-earthy-green);
+  border-radius: 8px;
+  min-height: 45px;
+  outline: none;
+  box-sizing: border-box; /* ensure padding doesn't increase visual height */
+  /* theme-based background and text color */
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+}
+
+.input::placeholder {
+  /* 40% opacity placeholder for inputs (derived from theme charcoal) */
+  color: rgba(31,31,31,0.4);
+}
+
+/* Vendor-prefixed placeholder selectors for broader browser support */
+.input::-webkit-input-placeholder { color: rgba(31,31,31,0.4); }
+.input:-ms-input-placeholder { color: rgba(31,31,31,0.4); }
+.input::-ms-input-placeholder { color: rgba(31,31,31,0.4); }
+
+.login-button {
+  /* 50px spacing above and below the button as requested */
+  margin: 50px 0;
+  background: var(--color-earthy-green);
+  color: var(--color-cream);
+  border: none;
+  padding: 10px 14px;
+  font-size: var(--h3-size);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  border-radius: 8px;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.login-button:active,
+.login-button:focus {
+  transform: translateY(0.5px);
+}
+
+.forgot-wrapper {
+  display: flex;
+  justify-content: center;
+  /* spacing moved to the button to keep exact 50px gaps */
+  margin-top: 0;
+}
+
+.forgot-link {
+  color: var(--color-charcoal);
+  text-decoration: underline;
+  font-size: var(--h3-size);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+}
+
+@media (max-width: 420px) {
+  .login-card { padding: 20px; }
+  .login-title { font-size: 26px; } /* custom size for mobile */
+}

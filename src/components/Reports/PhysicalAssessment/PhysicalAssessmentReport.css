@@ -1,0 +1,618 @@
+/* PhysicalAssessmentReport.css */
+@import '../../../styles/theme.css';
+
+/* ========== CONTAINER & LAYOUT ========== */
+.physical-assessment-report {
+  min-height: 100vh;
+  background-color: var(--bg-secondary, #f5f5f5);
+  padding: 20px;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.physical-assessment-report__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+/* ========== HEADER ========== */
+.physical-assessment-report__header {
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--color-earthy-green, #4caf50);
+  padding-bottom: 15px;
+}
+
+.physical-assessment-report__title {
+  margin: 0;
+  color: var(--color-earthy-green, #4caf50);
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* ========== FILTERS SECTION ========== */
+.physical-assessment-report__filters-card {
+  background-color: var(--bg-light, #f9f9f9);
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.physical-assessment-report__filters-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.physical-assessment-report__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.physical-assessment-report__label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.physical-assessment-report__select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.physical-assessment-report__select:hover:not(:disabled) {
+  border-color: #999;
+}
+
+.physical-assessment-report__select:focus {
+  outline: none;
+  border-color: var(--color-earthy-green, #4caf50);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.physical-assessment-report__select:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.physical-assessment-report__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+  color: #333;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.physical-assessment-report__input:hover {
+  border-color: #999;
+}
+
+.physical-assessment-report__input:focus {
+  outline: none;
+  border-color: var(--color-earthy-green, #4caf50);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.physical-assessment-report__filters-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.physical-assessment-report__filters-actions button {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+/* ========== LOADING & ERROR STATES ========== */
+.physical-assessment-report__loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.physical-assessment-report__error {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef5350;
+  border-radius: 4px;
+  padding: 12px 15px;
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.physical-assessment-report__empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 16px;
+}
+
+/* ========== SESSIONS SELECTION ========== */
+.physical-assessment-report__sessions-card {
+  background-color: var(--bg-light, #f9f9f9);
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.physical-assessment-report__section-title {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.physical-assessment-report__sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding: 10px 0;
+}
+
+.physical-assessment-report__radio-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.physical-assessment-report__radio-label:hover {
+  background-color: #f0f0f0;
+}
+
+.physical-assessment-report__radio-label input[type="radio"] {
+  cursor: pointer;
+}
+
+.physical-assessment-report__radio-text {
+  font-size: 14px;
+  color: #333;
+}
+
+.physical-assessment-report__report-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.physical-assessment-report__report-actions button {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+/* ========== SESSIONS SELECTION ========== */
+.physical-assessment-report__sessions-card {
+  background-color: var(--bg-light, #f9f9f9);
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.physical-assessment-report__section-title {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.physical-assessment-report__sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding: 10px 0;
+}
+
+.physical-assessment-report__radio-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.physical-assessment-report__radio-label:hover {
+  background-color: #f0f0f0;
+}
+
+.physical-assessment-report__radio-label input[type="radio"] {
+  cursor: pointer;
+}
+
+.physical-assessment-report__radio-text {
+  font-size: 14px;
+  color: #333;
+}
+
+.physical-assessment-report__report-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.physical-assessment-report__report-actions button {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+/* ========== REPORT CONTENT ========== */
+.physical-assessment-report__report {
+  page-break-inside: avoid;
+}
+
+.physical-assessment-report__report-header {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.physical-assessment-report__report-title {
+  margin: 0 0 8px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.physical-assessment-report__report-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* ========== SUMMARY CARDS ========== */
+.physical-assessment-report__summary-section {
+  margin-bottom: 30px;
+}
+
+.physical-assessment-report__subsection-title {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.physical-assessment-report__summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.physical-assessment-report__card {
+  background: linear-gradient(135deg, var(--color-earthy-green, #4caf50), #2d5433);
+  color: white;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.physical-assessment-report__card-label {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.physical-assessment-report__card-value {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* ========== PERFORMERS SECTION ========== */
+.physical-assessment-report__performers-section {
+  margin-bottom: 30px;
+}
+
+.physical-assessment-report__performers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.physical-assessment-report__performer-card {
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #e0e0e0;
+}
+
+.physical-assessment-report__performer-card.best {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.physical-assessment-report__performer-card.weakest {
+  background-color: #ffebee;
+  border-color: #f44336;
+}
+
+.physical-assessment-report__performer-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.physical-assessment-report__performer-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.physical-assessment-report__performer-score {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-earthy-green, #4caf50);
+}
+
+.physical-assessment-report__top-list {
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  padding: 15px;
+}
+
+.physical-assessment-report__top-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.physical-assessment-report__top-item {
+  display: grid;
+  grid-template-columns: 40px 1fr 60px;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.physical-assessment-report__top-item:last-child {
+  border-bottom: none;
+}
+
+.physical-assessment-report__top-rank {
+  font-weight: 600;
+  color: var(--color-earthy-green, #4caf50);
+}
+
+.physical-assessment-report__top-name {
+  color: #333;
+}
+
+.physical-assessment-report__top-score {
+  font-weight: 600;
+  text-align: right;
+  color: #666;
+}
+
+/* ========== EXERCISE SECTION ========== */
+.physical-assessment-report__exercise-section {
+  margin-bottom: 30px;
+}
+
+.physical-assessment-report__exercise-comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.physical-assessment-report__exercise-card {
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #e0e0e0;
+}
+
+.physical-assessment-report__exercise-card.best {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.physical-assessment-report__exercise-card.weakest {
+  background-color: #fff3e0;
+  border-color: #ff9800;
+}
+
+.physical-assessment-report__exercise-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.physical-assessment-report__exercise-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+.physical-assessment-report__exercise-score {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-earthy-green, #4caf50);
+}
+
+/* ========== TABLES ========== */
+.physical-assessment-report__exercise-table-section,
+.physical-assessment-report__students-table-section {
+  margin-bottom: 30px;
+}
+
+.physical-assessment-report__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.physical-assessment-report__table thead {
+  background-color: var(--color-earthy-green, #4caf50);
+  color: white;
+}
+
+.physical-assessment-report__table th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.physical-assessment-report__table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  color: #333;
+}
+
+.physical-assessment-report__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.physical-assessment-report__table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* ========== EXPORT SECTION ========== */
+.physical-assessment-report__export-section {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.physical-assessment-report__export-section button {
+  padding: 12px 24px;
+  font-size: 14px;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1024px) {
+  .physical-assessment-report__filters-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .physical-assessment-report__summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .physical-assessment-report__performers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .physical-assessment-report__exercise-comparison {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .physical-assessment-report__container {
+    padding: 15px;
+  }
+
+  .physical-assessment-report__title {
+    font-size: 22px;
+  }
+
+  .physical-assessment-report__filters-row {
+    grid-template-columns: 1fr;
+  }
+
+  .physical-assessment-report__filters-actions {
+    flex-direction: column;
+  }
+
+  .physical-assessment-report__filters-actions button {
+    width: 100%;
+  }
+
+  .physical-assessment-report__summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .physical-assessment-report__table {
+    font-size: 12px;
+  }
+
+  .physical-assessment-report__table th,
+  .physical-assessment-report__table td {
+    padding: 8px 10px;
+  }
+}
+
+@media print {
+  .physical-assessment-report__filters-card,
+  .physical-assessment-report__sessions-card,
+  .physical-assessment-report__export-section,
+  .physical-assessment-report__error {
+    display: none;
+  }
+
+  .physical-assessment-report {
+    background-color: white;
+    padding: 0;
+  }
+
+  .physical-assessment-report__container {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .physical-assessment-report__report {
+    page-break-after: auto;
+  }
+
+  .physical-assessment-report__summary-section,
+  .physical-assessment-report__performers-section,
+  .physical-assessment-report__exercise-section,
+  .physical-assessment-report__exercise-table-section,
+  .physical-assessment-report__students-table-section {
+    page-break-inside: avoid;
+  }
+}

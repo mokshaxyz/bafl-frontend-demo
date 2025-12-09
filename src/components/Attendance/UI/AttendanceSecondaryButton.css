@@ -1,0 +1,42 @@
+.attendance-secondary-button {
+  padding: 10px 28px;
+  background: white;
+  color: var(--color-earthy-green);
+  border: 2px solid var(--color-earthy-green);
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+}
+
+.attendance-secondary-button:hover:not(:disabled) {
+  background: rgba(63, 100, 109, 0.08);
+  border-color: var(--color-charcoal);
+  color: var(--color-charcoal);
+}
+
+.attendance-secondary-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.attendance-secondary-button:disabled {
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
+}
+
+.attendance-secondary-button:focus {
+  outline: none;
+}
+
+.attendance-secondary-button:focus:not(:disabled) {
+  box-shadow: 0 0 0 3px rgba(63, 100, 109, 0.2);
+}

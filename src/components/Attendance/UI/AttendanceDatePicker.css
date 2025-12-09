@@ -1,0 +1,37 @@
+.attendance-date-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attendance-date-picker__label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  color: var(--color-charcoal);
+}
+
+.attendance-date-picker__input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--color-earthy-green);
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-charcoal);
+  background: white;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.attendance-date-picker__input:hover {
+  border-color: var(--color-charcoal);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.attendance-date-picker__input:focus {
+  outline: none;
+  border-color: var(--color-earthy-green);
+  box-shadow: 0 0 0 3px rgba(63, 100, 109, 0.1);
+}

@@ -1,0 +1,40 @@
+.attendance-primary-button {
+  padding: 10px 28px;
+  background: var(--color-earthy-green);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+}
+
+.attendance-primary-button:hover:not(:disabled) {
+  background: var(--color-charcoal);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.attendance-primary-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.attendance-primary-button:disabled {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.5);
+  cursor: not-allowed;
+}
+
+.attendance-primary-button:focus {
+  outline: none;
+}
+
+.attendance-primary-button:focus:not(:disabled) {
+  box-shadow: 0 0 0 3px rgba(63, 100, 109, 0.3);
+}

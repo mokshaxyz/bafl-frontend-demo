@@ -1,0 +1,45 @@
+.attendance-batch-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attendance-batch-selector__label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  color: var(--color-charcoal);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.attendance-batch-selector__select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--color-earthy-green);
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-charcoal);
+  background: white;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233F646D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 40px;
+}
+
+.attendance-batch-selector__select:hover {
+  border-color: var(--color-charcoal);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.attendance-batch-selector__select:focus {
+  outline: none;
+  border-color: var(--color-earthy-green);
+  box-shadow: 0 0 0 3px rgba(63, 100, 109, 0.1);
+}

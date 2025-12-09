@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://172.16.147.159:8000/api/v1",
+  baseURL: "https://bafl-backend.onrender.com/api/v1",
   headers: {
     "Content-Type": "application/json",
   },

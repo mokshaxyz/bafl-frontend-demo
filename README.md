@@ -1,53 +1,266 @@
-# Getting Started with Create React App
+# BAFL Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based frontend application for managing attendance, invoices, and physical assessments with secure authentication.
 
-## API configuration and Login
+## Table of Contents
 
-The login page is wired to your backend's authentication API.
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Authentication](#authentication)
+- [Development](#development)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Logging](#logging)
+- [Troubleshooting](#troubleshooting)
 
-- Default API base URL: `http://172.16.184.181:4256`
-- Login endpoint path: `/api/v1/auth/login`
+## Quick Start
 
-You can override the base URL by creating a `.env` file in the project root and setting:
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn package manager
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd bafl-frontend-demo
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+
+# Start development server
+npm start
+```
+
+The app runs at [http://localhost:3000](http://localhost:3000).
+
+## Project Structure
 
 ```
-REACT_APP_API_BASE_URL=http://127.0.0.1:4256
+src/
+├── components/          # React components
+│   ├── Attendance/      # Attendance marking & summary
+│   ├── Invoice/         # Invoice generation
+│   ├── Reports/         # Physical assessment reports
+│   ├── Layout/          # App layout wrapper
+│   ├── Navbar/          # Navigation bar
+│   ├── Sidebar/         # Sidebar navigation
+│   └── Errors/          # Error pages
+├── context/             # React Context (AuthContext)
+├── services/            # API client and helpers
+├── utils/               # Utility functions (logger, interceptors)
+├── styles/              # Global CSS and theme
+└── public/              # Static assets
 ```
 
-Restart the dev server after changing `.env`.
+## Configuration
 
-Example request the app sends on login:
+### Environment Variables
 
+Create a `.env` file in the project root:
+
+```env
+# API Configuration
+REACT_APP_API_BASE_URL=https://bafl-backend.onrender.com/api/v1
+
+# Logging Level (DEBUG, INFO, WARN, ERROR)
+REACT_APP_LOG_LEVEL=INFO
+
+# Node environment
+NODE_ENV=development
 ```
-POST {BASE_URL}/api/v1/auth/login
-Content-Type: application/json
-Accept: application/json
 
-{
-	"username": "raghav",
-	"password": "raghav123"
-}
+**Note:** Never commit `.env` files. Use `.env.example` for templates.
+
+### Development Proxy
+
+For local development with a backend on your network:
+
+1. Update `package.json` proxy:
+   ```json
+   "proxy": "http://YOUR_API_HOST:PORT"
+   ```
+2. Leave `REACT_APP_API_BASE_URL` unset (app will use proxy)
+
+## Authentication
+
+### Login Flow
+
+1. User submits credentials on `/login`
+2. Frontend sends POST to `/auth/login`
+3. Backend returns:
+   ```json
+   {
+     "access_token": "string",
+     "refresh_token": "string",
+     "token_type": "bearer",
+     "user": {
+       "user_id": 0,
+       "name": "string",
+       "username": "string",
+       "role": "string"
+     }
+   }
+   ```
+4. Frontend stores in `localStorage.auth`:
+   ```json
+   {
+     "token": "<access_token>",
+     "user": { ... }
+   }
+   ```
+
+### Protected Routes
+
+All routes except `/login` are protected via `<ProtectedRoute>`. Unauthorized users are redirected to login.
+
+### Token Management
+
+- Token automatically attached to all API requests as: `Authorization: Bearer <token>`
+- Token persists across browser sessions
+- Token cleared on logout
+
+## Development
+
+### Available Scripts
+
+```bash
+# Start development server with hot reload
+npm start
+
+# Build for production
+npm run build
+
+# Run tests
+npm test
+
+# Analyze bundle size
+npm run build -- --analyze
 ```
 
-On success, the app stores the returned user (and token if provided) in `localStorage` under the key `auth` for session persistence.
+### Code Style
+
+- Use ES6+ syntax
+- Follow React hooks best practices
+- Keep components functional and composable
+- Add meaningful comments for complex logic
+
+### Debugging
+
+1. **Console Logs**: Browser DevTools (F12)
+2. **Network Tab**: Check API requests/responses
+3. **Application Storage**: Inspect `localStorage.auth`
+4. **React DevTools**: Browser extension for component inspection
+
+## Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run with coverage
+npm test -- --coverage
+```
+
+Tests are located in `__tests__` directories alongside components.
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Connect GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy on push to main branch
+
+```bash
+# Local preview of production build
+npm run build
+npm install -g serve
+serve -s build
+```
+
+### Environment Variables for Production
+
+- `REACT_APP_API_BASE_URL`: Must be HTTPS and absolute URL
+- `REACT_APP_LOG_LEVEL`: Set to `WARN` or `ERROR`
+- `NODE_ENV`: Automatically set to `production`
 
 ## Logging
 
-This application includes a comprehensive logging system for debugging and monitoring. Logs are displayed in the browser console and can be exported for analysis.
+The application includes a structured logging system:
 
-**Key Features:**
-- Multiple log levels (DEBUG, INFO, WARN, ERROR)
-- Environment-aware (verbose in development, minimal in production)
-- Structured logging with timestamps and context
-- Export and download capabilities
+### Features
 
-**Configuration:**
+- **Multiple Levels**: DEBUG, INFO, WARN, ERROR
+- **Structured Output**: Timestamps, context, and metadata
+- **Environment-Aware**: Verbose in dev, minimal in prod
+- **Module-Based**: Each module has its own logger instance
 
-Set the log level in your `.env` file:
+### Usage
+
+```javascript
+import logger from './utils/logger';
+const myLogger = logger.createChildLogger('MyModule');
+myLogger.info('Operation successful', { userId: 123 });
 ```
-REACT_APP_LOG_LEVEL=DEBUG
+
+### Configuration
+
+Set log level in `.env`:
+
+```env
+REACT_APP_LOG_LEVEL=DEBUG  # or INFO, WARN, ERROR
 ```
+
+## Troubleshooting
+
+### 401 Unauthorized Errors
+
+- Check `localStorage.auth.token` exists
+- Verify token is not expired
+- Check browser console for API errors
+- Ensure `REACT_APP_API_BASE_URL` is correct
+
+### CORS Issues
+
+- In development: Use `package.json` proxy to backend
+- In production: Backend must have CORS headers for frontend domain
+
+### Build Failures
+
+```bash
+# Clear cache and reinstall
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+```
+
+### Blank Login Page
+
+- Check browser console for errors
+- Verify all CSS files are loaded
+- Check if `REACT_APP_API_BASE_URL` is reachable
+
+## Contributing
+
+1. Create a feature branch: `git checkout -b feature/description`
+2. Commit changes with clear messages
+3. Push and create a Pull Request
+4. Ensure tests pass before merging
+
+## License
+
+Private project. All rights reserved.
+
+## Support
+
+For issues or questions, contact the development team.
 
 Options: `DEBUG`, `INFO`, `WARN`, `ERROR`, `NONE`
 

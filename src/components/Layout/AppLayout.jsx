@@ -5,12 +5,16 @@ import Sidebar from "../Sidebar/Sidebar";
 import "./AppLayout.css";
 import { useAuth } from "../../context/AuthContext";
 
+// Main layout container for authenticated users
+// Provides top navigation (Navbar) and side navigation (Sidebar)
+// Displays page content via Outlet (child routes)
 export default function AppLayout() {
   const { user, setUser } = useAuth() || {};
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Map URL paths to sidebar menu keys for highlighting active menu item
   const getActiveKey = (pathname) => {
     if (pathname.startsWith("/attendance/mark")) return "attendance-mark";
     if (pathname.startsWith("/attendance/view-edit")) return "attendance-view-edit";
@@ -23,10 +27,12 @@ export default function AppLayout() {
 
   const [activeKey, setActiveKey] = useState(getActiveKey(location.pathname));
 
+  // Update active menu item when URL changes
   React.useEffect(() => {
     setActiveKey(getActiveKey(location.pathname));
   }, [location.pathname]);
 
+  // Handle sidebar menu navigation
   const handleSelect = useCallback(
     (key) => {
       setActiveKey(key);
@@ -59,7 +65,6 @@ export default function AppLayout() {
   const handleLogout = () => {
     try {
       localStorage.removeItem("auth");
-      localStorage.removeItem("access_token");
       if (typeof setUser === "function") setUser(null);
     } catch (e) {
       // ignore

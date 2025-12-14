@@ -13,7 +13,7 @@ const authLogger = logger.createChildLogger('AuthContext');
 // you can leave REACT_APP_API_BASE_URL undefined and we will use a relative path to
 // avoid CORS by letting the dev server proxy the request.
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || (process.env.NODE_ENV === 'development' ? '' : 'https://bafl-backend.onrender.com/api/v1');
-const LOGIN_PATH = '/auth/login';
+const LOGIN_PATH = '/api/v1/auth/login';
 
 // Safely build a URL from base and path, aligning with the Postman call
 const buildUrl = (base, path) => {
@@ -27,11 +27,12 @@ const buildUrl = (base, path) => {
 };
 
 export function AuthProvider({ children }) {
-  // Initialize from localStorage so auth persists on refresh
+  // Initialize token from localStorage on app load (enables session persistence on page refresh)
+  // Token stored in auth object under access_token field (matches backend contract)
   const [token, setToken] = useState(() => {
     try {
       const raw = localStorage.getItem('auth');
-      const parsedToken = raw ? JSON.parse(raw)?.token || null : null;
+      const parsedToken = raw ? JSON.parse(raw)?.access_token || null : null;
       if (parsedToken) {
         authLogger.info('Auth token restored from localStorage');
       } else {
@@ -43,6 +44,7 @@ export function AuthProvider({ children }) {
       return null;
     }
   });
+  // User info (name, username, role) from backend during login
   const [user, setUser] = useState(() => {
     try {
       const raw = localStorage.getItem('auth');
@@ -66,7 +68,9 @@ export function AuthProvider({ children }) {
     setToken(nextToken);
     setUser(nextUser);
     try {
-      localStorage.setItem('auth', JSON.stringify({ token: nextToken, user: nextUser }));
+      // Store both in auth object and as standalone key for API interceptor to read
+      localStorage.setItem('auth', JSON.stringify({ access_token: nextToken, user: nextUser }));
+      localStorage.setItem('access_token', nextToken); // Fallback for interceptor
       authLogger.debug('Auth data saved to localStorage');
     } catch (err) {
       authLogger.error('Failed to save auth data to localStorage', err);
@@ -85,20 +89,26 @@ export function AuthProvider({ children }) {
     }
   };
 
- const extractToken = (data) => (
-  data?.access_token || null
-);
+  // Extract token from login response (backend returns token in access_token field)
+  const extractToken = (data) => (
+    data?.access_token || null
+  );
 
+  // Extract user info from login response (backend returns user object)
   const extractUser = (data, fallbackUsername) => (
     data?.user || data?.data?.user || (fallbackUsername ? { username: fallbackUsername } : null)
   );
 
   const login = async (username, password) => {
     authLogger.logAuth('Login attempt', { username });
-  const url = buildUrl(API_BASE_URL, LOGIN_PATH); // If API_BASE_URL === '' (dev proxy), this becomes '/api/v1/auth/login'
+    // Build login URL using environment variable (REACT_APP_API_BASE_URL)
+    // Falls back to relative path in development (uses proxy from package.json)
+    // Falls back to HTTPS backend in production
+    const url = buildUrl(API_BASE_URL, LOGIN_PATH);
     authLogger.logRequest('POST', url, { username });
     setLoading(true);
     try {
+      // Call login endpoint with username and password
       const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -117,7 +127,7 @@ export function AuthProvider({ children }) {
         data = null;
       }
 
-  authLogger.logResponse('POST', url, res.status, data);
+      authLogger.logResponse('POST', url, res.status, data);
 
       if (!res.ok) {
         const message = (data && (data.message || data.error)) || 'Invalid credentials';
@@ -127,6 +137,7 @@ export function AuthProvider({ children }) {
         throw err;
       }
 
+      // Extract token and user info from backend response
       const nextToken = extractToken(data);
       const nextUser = extractUser(data, username) || { username };
       if (!nextToken) {
@@ -139,7 +150,7 @@ export function AuthProvider({ children }) {
       persistAuth(nextToken, nextUser);
       return { user: nextUser, token: nextToken };
     } catch (err) {
-      // Re-throw after clearing any stale session on auth errors (4xx)
+      // Clear stale session on auth errors (4xx status codes)
       if (typeof err?.code === 'number' && err.code >= 400 && err.code < 500) {
         authLogger.info('Clearing stale session due to auth error', { code: err.code });
         clearAuth();

@@ -8,20 +8,22 @@ import AttendanceCoachSelector from './UI/AttendanceCoachSelector';
 import api from '../../services/api';
 
 const AttendanceMark = () => {
+  // Helper to get today's date in YYYY-MM-DD format
   const getTodayDate = () => {
     const today = new Date();
     return today.toISOString().split('T')[0];
   };
 
+  // Form state for marking attendance
   const [selectedSchool, setSelectedSchool] = useState('');
   const [selectedSchoolId, setSelectedSchoolId] = useState(null);
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
   const [markedByCoach, setMarkedByCoach] = useState('');
   const [students, setStudents] = useState([]);
-  const [attendance, setAttendance] = useState({});
-  // No sessionId in mark page; this page only posts new attendance
+  const [attendance, setAttendance] = useState({}); // Maps student ID to attendance status
+  // Note: This page creates new attendance records only (no sessionId needed)
 
-  // Helper: Map school name to synthetic coach label
+  // Helper: Map school name to synthetic coach label for request
   const getCoachLabelForSchool = (schoolName) => {
     if (!schoolName) return '';
     const name = String(schoolName).toLowerCase();
@@ -30,7 +32,7 @@ const AttendanceMark = () => {
     return '';
   };
 
-  // Fetch coaches when school is selected (to verify coaches exist for this school)
+  // Load coaches when school changes to verify coaches exist for selected school
   useEffect(() => {
     let cancelled = false;
 
@@ -47,7 +49,8 @@ const AttendanceMark = () => {
         const data = Array.isArray(res.data) ? res.data : (res.data?.coaches || []);
 
         if (!cancelled && data.length > 0) {
-          // School has coaches; set the synthetic label
+          // If coaches exist for this school, set the synthetic coach label for API request
+
           const label = getCoachLabelForSchool(selectedSchool);
           setMarkedByCoach(label || '');
         } else if (!cancelled) {

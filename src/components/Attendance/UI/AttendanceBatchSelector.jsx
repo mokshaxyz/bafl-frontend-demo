@@ -1,9 +1,12 @@
 import React from 'react';
 import './AttendanceBatchSelector.css';
 
+// Reusable dropdown component for selecting student age batch
+// Batches: Under 14, Under 17, Under 19
 const AttendanceBatchSelector = ({ selectedBatch, onBatchChange, label = 'Batch' }) => {
   const batches = ['Under 14', 'Under 17', 'Under 19'];
 
+  // Call parent callback when user selects a batch
   const handleChange = (value) => {
     if (onBatchChange) {
       onBatchChange(value);

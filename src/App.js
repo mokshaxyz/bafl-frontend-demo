@@ -22,11 +22,14 @@ function App() {
   return (
     <div className="App">
       <main>
+        {/* Global error handler listens for 500 errors and navigates to error page */}
         <GlobalErrorHandler />
         <Routes>
+          {/* Public login page (no authentication required) */}
           <Route path="/login" element={<LoginPage />} />
 
-          {/* Protected routes wrapped with AppLayout */}
+          {/* Protected routes: wrapped with ProtectedRoute to ensure user is authenticated */}
+          {/* AppLayout provides navigation structure (Sidebar, Navbar) for all protected pages */}
           <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
             <Route path="/attendance/mark" element={<AttendanceMark />} />
             <Route path="/attendance/view-edit" element={<AttendanceViewEdit />} />
@@ -36,7 +39,7 @@ function App() {
             <Route path="/invoice-template" element={<BlankInvoicePage />} />
           </Route>
 
-          {/* Default and fallback -> login */}
+          {/* Default and fallback routes redirect to login */}
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>

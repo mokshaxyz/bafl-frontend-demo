@@ -6,6 +6,8 @@ import './LoginPage.css';
 
 const loginLogger = logger.createChildLogger('LoginPage');
 
+// Login page for user authentication
+// Redirects authenticated users to their original destination (or /attendance/mark by default)
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +17,7 @@ function LoginPage() {
   const location = useLocation();
   const { isAuthenticated, login } = useAuth();
 
-  // If already logged in, redirect to attendance/mark
+  // Redirect already-authenticated users to their destination or default page
   useEffect(() => {
     if (isAuthenticated) {
       const from = location.state?.from?.pathname || '/attendance/mark';
@@ -36,8 +38,8 @@ function LoginPage() {
     setSubmitting(true);
     login(username, password)
       .then((response) => {
-        // AuthContext.login() handles persisting token/user to localStorage
-        // No additional persistence needed here
+        // AuthContext.login() persists token and user to localStorage
+        // No additional storage needed here - just navigate after success
         setError('');
         const from = location.state?.from?.pathname || '/attendance/mark';
         loginLogger.info('Login successful, redirecting', { from });
@@ -47,7 +49,7 @@ function LoginPage() {
         const message = err?.message || 'Login failed. Please try again.';
         const status = err?.code;
         const isServerError = typeof status === 'number' && status >= 500;
-  const isNetworkError = /failed to fetch|network|aborted/i.test(String(message));
+        const isNetworkError = /failed to fetch|network|aborted/i.test(String(message));
         
         loginLogger.error('Login failed', err, { status, isServerError, isNetworkError });
         

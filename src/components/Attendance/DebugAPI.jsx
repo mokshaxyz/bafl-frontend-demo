@@ -49,7 +49,9 @@ const DebugAPI = () => {
       }
 
       // Test 3: Check auth token
-      const token = localStorage.getItem('access_token');
+      const authData = localStorage.getItem('auth');
+      const parsedAuth = authData ? JSON.parse(authData) : null;
+      const token = parsedAuth?.token;
       testResults.auth = {
         hasToken: !!token,
         tokenLength: token?.length || 0,

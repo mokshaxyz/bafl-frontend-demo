@@ -9,22 +9,17 @@ const api = axios.create({
 
 // Automatically attach the token from localStorage (for authentication)
 api.interceptors.request.use((config) => {
-  // Read token ONLY from access_token field
+  // Read token ONLY from localStorage.auth.token
   let token = null;
   
   const authData = localStorage.getItem("auth");
   if (authData) {
     try {
       const parsed = JSON.parse(authData);
-      token = parsed?.access_token;
+      token = parsed?.token;
     } catch (err) {
       console.error('Failed to parse auth from localStorage', err);
     }
-  }
-  
-  // Fallback to access_token localStorage key if not found in auth object
-  if (!token) {
-    token = localStorage.getItem("access_token");
   }
   
   if (token) {

@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => {
     try {
       const raw = localStorage.getItem('auth');
-      const parsedToken = raw ? JSON.parse(raw)?.access_token || null : null;
+      const parsedToken = raw ? JSON.parse(raw)?.token || null : null;
       if (parsedToken) {
         authLogger.info('Auth token restored from localStorage');
       } else {
@@ -66,8 +66,7 @@ export function AuthProvider({ children }) {
     setToken(nextToken);
     setUser(nextUser);
     try {
-      localStorage.setItem('auth', JSON.stringify({ access_token: nextToken, user: nextUser }));
-      localStorage.setItem('access_token', nextToken);
+      localStorage.setItem('auth', JSON.stringify({ token: nextToken, user: nextUser }));
       authLogger.debug('Auth data saved to localStorage');
     } catch (err) {
       authLogger.error('Failed to save auth data to localStorage', err);

@@ -13,7 +13,7 @@ const authLogger = logger.createChildLogger('AuthContext');
 // you can leave REACT_APP_API_BASE_URL undefined and we will use a relative path to
 // avoid CORS by letting the dev server proxy the request.
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || (process.env.NODE_ENV === 'development' ? '' : 'https://bafl-backend.onrender.com/api/v1');
-const LOGIN_PATH = '/api/v1/auth/login';
+const LOGIN_PATH = '/auth/login';
 
 // Safely build a URL from base and path, aligning with the Postman call
 const buildUrl = (base, path) => {
@@ -86,7 +86,7 @@ export function AuthProvider({ children }) {
   };
 
   const extractToken = (data) => (
-    data?.token || data?.accessToken || data?.jwt || data?.data?.token || null
+    data?.access_token || data?.token || data?.accessToken || data?.jwt || data?.data?.token || null
   );
 
   const extractUser = (data, fallbackUsername) => (

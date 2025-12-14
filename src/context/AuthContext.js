@@ -86,12 +86,7 @@ export function AuthProvider({ children }) {
   };
 
  const extractToken = (data) => (
-  data?.access_token ||   
-  data?.accessToken ||
-  data?.jwt ||
-  data?.data?.access_token ||
-  data?.data?.token ||
-  null
+  data?.access_token || data?.token || null
 );
 
   const extractUser = (data, fallbackUsername) => (

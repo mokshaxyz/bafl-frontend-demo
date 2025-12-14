@@ -8,13 +8,11 @@ const AuthContext = createContext(null);
 const authLogger = logger.createChildLogger('AuthContext');
 
 // Prefer configuring base URL via environment variable. Example:
-// REACT_APP_API_BASE_URL=http://172.16.184.181:4256
-// IMPORTANT: The backend login endpoint in Postman uses HTTP, not HTTPS.
-// If your server is not terminating TLS, do NOT use an https:// URL here.
+// REACT_APP_API_BASE_URL=https://bafl-backend.onrender.com/api/v1
 // When running in development WITH a Create React App proxy (see package.json "proxy"),
 // you can leave REACT_APP_API_BASE_URL undefined and we will use a relative path to
 // avoid CORS by letting the dev server proxy the request.
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || (process.env.NODE_ENV === 'development' ? '' : 'http://172.16.183.186:4256');
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || (process.env.NODE_ENV === 'development' ? '' : 'https://bafl-backend.onrender.com/api/v1');
 const LOGIN_PATH = '/api/v1/auth/login';
 
 // Safely build a URL from base and path, aligning with the Postman call

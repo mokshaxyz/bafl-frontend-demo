@@ -36,19 +36,8 @@ function LoginPage() {
     setSubmitting(true);
     login(username, password)
       .then((response) => {
-        // If the login helper returns the axios response, persist tokens/user
-        try {
-          if (response?.data?.access_token) {
-            localStorage.setItem('access_token', response.data.access_token);
-          }
-          if (response?.data?.user) {
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-          }
-        } catch (err) {
-          // swallow storage errors but log for debugging
-          loginLogger.error('Failed to persist login data to localStorage', err);
-        }
-
+        // AuthContext.login() handles persisting token/user to localStorage
+        // No additional persistence needed here
         setError('');
         const from = location.state?.from?.pathname || '/attendance/mark';
         loginLogger.info('Login successful, redirecting', { from });
